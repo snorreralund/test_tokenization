@@ -153,7 +153,7 @@ class TokenizationTest():
 		  ,scoring_function='roc_auc_score'):
 		"""Objective function for NBSVM Hyperparameter Optimization"""
 		if sub_sampling==None:
-			sub_samling = 1/n_folds
+			sub_sampling = 1/n_folds
 		scoring_function = self.scoring_function
 		x_train = self.x_train
 		n_features = x_train.shape[1]
