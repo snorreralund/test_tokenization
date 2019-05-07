@@ -105,7 +105,7 @@ class TokenizationTest():
 		# define log mode
 		self.log = log
 		self.outfile = outfile
-		if outfile!=None:x
+		if outfile!=None:
 			if not os.path.isfile(outfile):
 				of_connection = open(outfile, 'a')
 				writer = csv.writer(of_connection)
