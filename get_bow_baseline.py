@@ -148,6 +148,7 @@ class TokenizationTest():
 		x_test = vectorizer.transform(test_corpus)
 		self.x_train = x_train
 		self.x_test = x_test
+		self.vectorizer = vectorizer
 
 	def nblog(self,params={'sign':True,'epsilon':1,'C': 0.1},n_folds=10,sub_sampling=None
 		  ,scoring_function='roc_auc_score'):
@@ -293,7 +294,7 @@ class TokenizationTest():
 		## Best classifier is assumed to be nb_log
 		res_df = pd.DataFrame(res)
 		## score should be maximized
-		
+
 
 		#best = mean_score.sort_values()
 
@@ -342,6 +343,17 @@ class TokenizationTest():
 		self.best_params = best
 		self.best_clf = 'nb_log'
 		#self.best_clf = best['best_classifier']
+
+	def predict(self,X):
+		"""Function for using the classifier trained by the evaluate function.
+		Input is either a sparse matrix created by the self.vectorizer or a list of documents."""
+		if type(X[0]) ==str:
+			X = self.vectorizer.transform(X)
+
+		if best_clf == 'nb_log':
+
+			X = X.multiply(self.r)
+		return self.clf.predict_proba(X)
 
 	def evaluate(self, tokenizer_name,tokenize_func):
 		# run tokenization scheme
@@ -407,6 +419,8 @@ class TokenizationTest():
 			#r = np.log(prob(x_train,y,1,epsilon)/prob(x_train,y,0,epsilon))
 			r = get_nbratio(x_train,y,epsilon)
 			b = np.log((y==1).mean() / (y==0).mean())
+			self.r = r
+			self.b = b
 
 			x_nb = x_train.multiply(r)
 
