@@ -350,7 +350,7 @@ class TokenizationTest():
 		if type(X[0]) ==str:
 			X = self.vectorizer.transform(X)
 
-		if best_clf == 'nb_log':
+		if self.best_clf == 'nb_log':
 
 			X = X.multiply(self.r)
 		return self.clf.predict_proba(X)
